@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-import roommates from './api/roommates.route.js';
-const mongoose = require('mongoose');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import roommates from './api/roommates.routes.js';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 app.use(cors());
