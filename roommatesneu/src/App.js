@@ -9,8 +9,8 @@ import {
 function App() {
   return (
     <div className="app">
-      <h1> Hello World!</h1>
-      <h1> Bruh</h1>
+      <h1>RoommatesNEU</h1>
+      <h2>Roommate Search Engine for Northeastern University</h2>
     </div>
   );
 }
