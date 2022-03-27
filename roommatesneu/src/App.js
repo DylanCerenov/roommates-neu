@@ -5,12 +5,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import CreateProfilePage from './CreateProfilePage'
+import SearchPage from './SearchPage'
 
 function App() {
   return (
     <div className="app">
-      <h1>RoommatesNEU</h1>
-      <h2>Roommate Search Engine for Northeastern University</h2>
+    <CreateProfilePage />
+    <SearchPage />
     </div>
   );
 }
