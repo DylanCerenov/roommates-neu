@@ -1,5 +1,4 @@
 # roommates-neu
-Northeastern roommate matching engine
+Roommate matching engine for Northeastern University
 
-react
-react-router-dom
+The user enters their roommate preferences and is able to search for potential roommates
