@@ -9,8 +9,16 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    username: {
-        type: String, 
+    frequentStudier: {
+        type: Boolean,
+        required: true,
+    },
+    extroverted: {
+        type: Boolean,
+        required: true,
+    },
+    neat: {
+        type: Boolean,
         required: true,
     },
 })
