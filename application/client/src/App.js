@@ -41,7 +41,7 @@ function App() {
           extroverted,
           neat
         },
-      ]);
+      ].sort(compatibilitySort));
     });
   }
 
@@ -103,6 +103,8 @@ function App() {
 
         <input type="checkbox" id="lookingForNeat" onChange={(event) => { setSearchNeat(event.target.checked); }}/>
         <label for="lookingForNeat"> I am looking for a roommate who is a neat person </label> <br></br>
+
+        <br></br>
       </div>
 
       <div className="UsersDisplay">
