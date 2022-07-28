@@ -2,12 +2,11 @@
   text-align: left;
 }
 
+body {
+  background: linear-gradient(#DFF6FF, #47B5FF, #1363DF, #06283D);
+}
+
 .UsersDisplay {
   font-family: sans-serif;
   text-align: center;
-}
-
-th, td {
-  padding: 6px;
-  border: 1px solid #ccc;
 }

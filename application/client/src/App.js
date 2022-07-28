@@ -1,6 +1,36 @@
 import './App.css';
 import { useState, useEffect } from "react";
+import createTheme from '@mui/material/styles/createTheme';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import Axios from "axios";
+
+// theme for MUI
+const muiTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#06283D'
+    },
+    secondary: {
+      main: '#DFF6FF'
+    }
+  },
+  spacing: 8,
+
+});
 
 function App() {
   const [listOfUsers, setListOfUsers] = useState([]); // the list of our users 
@@ -84,76 +114,123 @@ function App() {
     return 1; 
   }
 
+
   return (
-    <div className="App">
+    <ThemeProvider theme = {muiTheme}>
+      <Box m={8} pt={0} pb={12}>
+        <div className="App">
 
-      <div className="Title">
-        <h1>RoommatesNEU</h1>
-        <h2>A roommate search engine</h2>
-      </div>
+          <div className="Title">
+            <Typography variant="h2" component="div" gutterBottom color="primary" style={{lineHeight: "24px"}}>
+              RoommatesNEU
+            </Typography>
+            <Typography variant="h5" component="div" gutterBottom color="primary">
+              A roommate search engine for students at Northeastern University
+            </Typography>
+          </div>
 
-      <div className="SearchCriteria">
-        <h3>Enter your preferences below:</h3>
+          <br></br>
 
-        <input type="checkbox" id="lookingForStudy" onChange={(event) => { setSearchFrequentStudier(event.target.checked); }}/>
-        <label for="lookingForStudy"> I am looking for a roommate who tends to study frequently </label> <br></br>
-
-        <input type="checkbox" id="lookingForExtrovert" onChange={(event) => { setSearchExtroverted(event.target.checked); }}/>
-        <label for="lookingForExtrovert"> I am looking for a roommate who is generally outgoing </label> <br></br>
-
-        <input type="checkbox" id="lookingForNeat" onChange={(event) => { setSearchNeat(event.target.checked); }}/>
-        <label for="lookingForNeat"> I am looking for a roommate who is a neat person </label> <br></br>
-
-        <br></br>
-      </div>
-
-      <div className="UsersDisplay">
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Frequent Studier</th>
-              <th>Extroverted</th>
-              <th>Neat</th>
-            </tr>
-            {listOfUsers.map((user, i) => (
-              <tr key={i}>
-                <td>{user.name}</td>
-                <td>{user.age}</td>
-                <td>{user.frequentStudier.toString()}</td>
-                <td>{user.extroverted.toString()}</td>
-                <td>{user.neat.toString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <h3>
-          Post yourself in our system!<br></br>
-          Fill out the questionnaire below!
-        </h3>
-      </div>
-
-      <div>
-        <input type="text" placeHolder="Name..." onChange={(event) => { setName(event.target.value); }}/> <br></br>
-
-        <input type="number" placeHolder="Age..." onChange={(event) => { setAge(event.target.value); }}/> <br></br>
-
-        <input type="checkbox" id="studyHuh" onChange={(event) => { setFrequentStudier(event.target.checked); }}/>
-        <label for="studyHuh"> I tend to study frequently </label> <br></br>
-
-        <input type="checkbox" id="extrovertedHuh" onChange={(event) => { setExtroverted(event.target.checked); }}/>
-        <label for="extrovertedHuh"> I am generally an outgoing person </label> <br></br>
-
-        <input type="checkbox" id="neatHuh" onChange={(event) => { setNeat(event.target.checked); }}/>
-        <label for="neatHuh"> I consider myself a neat person </label> <br></br>
-
-        <button onClick={createUser}> Create User </button>
-      </div>
-    </div>
+          <Box pl={4} pr={4}>
+            <div className="SearchCriteria">
+              <Typography variant="h6" component="div" gutterBottom color="primary" style={{lineHeight: "24px"}}>
+                Enter your preferences below:
+              </Typography>
+              <FormGroup >
+                <FormControlLabel 
+                  control={
+                    <Checkbox 
+                      color="primary" 
+                      sx={{ color: "#06283D", '&.Mui-checked': { color: "#06283D", }, }}
+                      onChange={(event) => { setSearchFrequentStudier(event.target.checked); }}/>
+                  } 
+                  label={<Typography color="primary">"I am looking for a roommate who tends to study frequently" </Typography>}
+                />
+                <FormControlLabel 
+                  control={
+                    <Checkbox 
+                      color="primary" 
+                      sx={{ color: "#06283D", '&.Mui-checked': { color: "#06283D", }, }}
+                      onChange={(event) => { setSearchExtroverted(event.target.checked); }}/>
+                  } 
+                  label={<Typography color="primary">"I am looking for a roommate who is generally outgoing" </Typography>} 
+                />
+                <FormControlLabel 
+                  control={
+                    <Checkbox 
+                      color="primary" 
+                      sx={{ color: "#06283D", '&.Mui-checked': { color: "#06283D", }, }}
+                      onChange={(event) => { setSearchNeat(event.target.checked); }}/>
+                  } 
+                  label={<Typography color="primary">"I am looking for a roommate who is a neat person" </Typography>} 
+                />
+              </FormGroup>
+            </div>
+          </Box>
+          
+          <Box pl={4} pr={4} pb={8}>
+            <div className="UsersDisplay">
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell><Typography bold>Name</Typography></TableCell>
+                      <TableCell align="right"><Typography bold>Age</Typography></TableCell>
+                      <TableCell align="right"><Typography bold>Frequent Studier</Typography></TableCell>
+                      <TableCell align="right"><Typography bold>Extroverted</Typography></TableCell>
+                      <TableCell align="right"><Typography bold>Neat</Typography></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {listOfUsers.map((user) => (
+                      <TableRow
+                        key={user.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {user.name}
+                        </TableCell>
+                        <TableCell align="right">{user.age}</TableCell>
+                        <TableCell align="right">{user.frequentStudier.toString()}</TableCell>
+                        <TableCell align="right">{user.extroverted.toString()}</TableCell>
+                        <TableCell align="right">{user.neat.toString()}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          </Box>
+          
+          <Box pl={4}>
+            <div>
+              <Typography variant="h6" component="div" gutterBottom color="secondary">
+                Post yourself in our system!<br></br>
+                Fill out the questionnaire below!
+              </Typography>
+            </div>
+          </Box>
+          <br></br>
+          
+          <Box pl={4}>
+            <div>
+              <FormGroup>
+                <Box pb={1}><TextField style={{width: '15%', scale: '10%'}} id="outlined-basic" label="Name" variant="outlined" onChange={(event) => { setName(event.target.value); }} color="secondary" sx={{ input: { color: "#DFF6FF" } }} focused/></Box>
+                <TextField style ={{width: '15%', scale: '10%'}} id="outlined-basic" label="Age" type="number" variant="outlined" onChange={(event) => { setAge(event.target.value); }} color="secondary" sx={{ input: { color: "#DFF6FF" } }} focused/>
+                <FormControlLabel control={<Checkbox color="secondary" sx={{ color: "#DFF6FF", '&.Mui-checked': { color: "#DFF6FF", }, }} onChange={(event) => { setFrequentStudier(event.target.checked); }}/>} label={<Typography color="secondary">"I tend to study frequently"</Typography>} />
+                <FormControlLabel control={<Checkbox color="secondary" sx={{ color: "#DFF6FF", '&.Mui-checked': { color: "#DFF6FF", }, }} onChange={(event) => { setExtroverted(event.target.checked); }}/>} label={<Typography color="secondary">"I am generally an outgoing person"</Typography>} />
+                <FormControlLabel control={<Checkbox color="secondary" sx={{ color: "#DFF6FF", '&.Mui-checked': { color: "#DFF6FF", }, }} onChange={(event) => { setNeat(event.target.checked); }}/>} label={<Typography color="secondary">"I consider myself a neat person"</Typography>} />
+              </FormGroup>
+              <br></br>
+              <Button onClick={createUser} color="secondary" variant="contained" >
+                Create User
+              </Button>
+            </div>
+          </Box>
+        </div>
+      </Box>
+      <Typography align="center" color="secondary">A Project by Dylan Cerenov, Victor Sunderland, and Dylan Dinio</Typography>
+    </ThemeProvider>
   );
 }
 
